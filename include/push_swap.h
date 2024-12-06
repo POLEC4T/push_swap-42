@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 15:40:03 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/06 17:13:48 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/06 17:38:22 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,7 @@
 # define ERROR "Error\n"
 
 # include <stdlib.h>
+
+int	ft_atoi(const char *nptr);
 
 #endif
