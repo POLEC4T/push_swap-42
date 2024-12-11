@@ -6,53 +6,64 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 14:25:57 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/06 17:48:13 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/11 14:42:50 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf.h"
 #include "../include/push_swap.h"
+#include "../ft_printf/include/ft_printf.h"
 
-int	is_input_valid(char **input)
+void	initialize_stacks(t_stack *a, t_stack *b, char **av, int ac)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (input[i])
+	a->list = malloc((ac - 1) * sizeof(int));
+	if (!a->list)
+		exit(1);
+	b->list = malloc((ac - 1) * sizeof(int));
+	a->max_stack_size = ac - 1;
+	b->max_stack_size = ac - 1;
+	a->stack_id = STACK_A;
+	b->stack_id = STACK_B;
+	if (!b->list)
 	{
-        j = 0;
-		while (input[i][j])
-		{
-			if (!((input[i][j] >= '0' && input[i][j] <= '9')))
-				return (0);
-            j++;
-		}
+		free(a->list);
+		exit(1);
+	}
+	while (((ac - 1) > 0))
+	{
+		a->list[i] = ft_atoi(av[ac - 1], a, b);
+		ac--;
 		i++;
 	}
-	return (1);
+	a->top = i - 1;
+	b->top = -1;
 }
 
 int	main(int ac, char **av)
 {
 	(void)ac;
-    int *a;
-    int *b;
-    int i;
+    t_stack a;
+    t_stack b;
 
-    i = 0;
-	if (!is_input_valid(av + 1))
+	if (!input_only_nb(av + 1) || ac < 2)
     {
 		ft_printf(ERROR);
         exit(1);
     }
-
-    a = malloc((ac - 1) * sizeof(int));
-    b = malloc((ac - 1) * sizeof(int));
-    while((av[i + 1]))
-    {
-        a[i] = ft_atoi(av[i + 1]);
-        i++;
+    initialize_stacks(&a, &b, av, ac);
+	if (got_duplicates(&a))
+	{
+		ft_printf(ERROR);
+		free_stacks(&a, &b);
+        exit(1);
     }
-    ft_printf("av[0]:%d\nav[1]:%d\nav[1]:%d",a[0], a[1], a[2]);
+	sorter(&a, &b);
+	// push_b(&a, &b);
+	// push_b(&a, &b);
+	// ft_printf("is sorted : %d\n", is_stack_sorted(&a));
+	// print_stack(&a);
+	free(a.list);
+	free(b.list);
 }

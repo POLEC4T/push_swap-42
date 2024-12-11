@@ -1,3 +1,4 @@
 .obj
 push_swap
 *.out
+push_swap_visualizer
