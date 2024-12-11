@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:24:28 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/11 13:19:25 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/11 16:21:09 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /**
  * shift up every element, first one becomes the last one
  */
-void	rotate_a(t_stack *a, int is_rr)
+int	rotate_a(t_stack *a, int is_rr)
 {
 	int	tmp;
 	int	i;
@@ -31,12 +31,13 @@ void	rotate_a(t_stack *a, int is_rr)
 	}
 	if (!is_rr)
 		ft_printf("ra\n");
+	return (1);
 }
 
 /**
  * shift up every element, first one becomes the last one
  */
-void	rotate_b(t_stack *b, int is_rr)
+int	rotate_b(t_stack *b, int is_rr)
 {
 	int	tmp;
 	int	i;
@@ -51,13 +52,15 @@ void	rotate_b(t_stack *b, int is_rr)
 	}
 	if (!is_rr)
 		ft_printf("rb\n");
+	return (1);
 }
 /**
  * shift up every element, first one becomes the last one
  */
-void	rotate_anb(t_stack *a, t_stack *b)
+int	rotate_anb(t_stack *a, t_stack *b)
 {
 	rotate_a(a, 1);
 	rotate_b(b, 1);
 	ft_printf("rr\n");
+	return (1);
 }

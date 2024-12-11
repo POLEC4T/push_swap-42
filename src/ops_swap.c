@@ -1,7 +1,7 @@
 #include "../ft_printf/include/ft_printf.h"
 #include "../include/push_swap.h"
 
-void	swap_a(t_stack *a, int is_ss)
+int	swap_a(t_stack *a, int is_ss)
 {
 	int	val1;
 	int	val2;
@@ -12,9 +12,10 @@ void	swap_a(t_stack *a, int is_ss)
 	push(a, val2);
 	if (!is_ss)
 		ft_printf("sa\n");
+	return (1);
 }
 
-void	swap_b(t_stack *b, int is_ss)
+int	swap_b(t_stack *b, int is_ss)
 {
 	int	val1;
 	int	val2;
@@ -25,11 +26,13 @@ void	swap_b(t_stack *b, int is_ss)
 	push(b, val2);
 	if (!is_ss)
 		ft_printf("sb\n");
+	return (1);
 }
 
-void	swap_anb(t_stack *b, t_stack *a)
+int	swap_anb(t_stack *b, t_stack *a)
 {
 	swap_a(a, 1);
 	swap_b(b, 1);
 	ft_printf("ss\n");
+	return (1);
 }

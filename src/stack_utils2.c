@@ -6,11 +6,39 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:17:10 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/11 14:54:11 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/11 16:03:43 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
+
+// void	rotate_both_till_top(t_stack *a, t_stack *b, int *idx,
+// 		int *wanted_idx_b)
+// {
+// 	int	direction_a;
+// 	int	direction_b;
+
+// 	direction_a = a->top / 2 < (*idx) + 1;
+// 	direction_b = b->top / 2 < (*wanted_idx_b) + 1;
+// 	if (direction_a == UP && direction_b == UP)
+// 	{
+// 		while ((*idx) != a->top && (*wanted_idx_b) != b->top)
+// 		{
+// 			rotate_anb(a, b);
+// 			(*wanted_idx_b)++;
+// 			(*idx)++;
+// 		}
+// 	}
+// 	else if (direction_a == DOWN && direction_b == DOWN)
+// 	{
+// 		while ((*idx) >= 0 && (*wanted_idx_b) >= 0)
+// 		{
+// 			reverse_rotate_anb(a, b);
+// 			(*wanted_idx_b)--;
+// 			(*idx)--;
+// 		}
+// 	}
+// }
 
 void	rotate_both_till_top(t_stack *a, t_stack *b, int *idx,
 		int *wanted_idx_b)

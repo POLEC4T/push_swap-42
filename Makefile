@@ -27,7 +27,7 @@ $(NAME): $(OBJS) $(INCDIR)push_swap.h
 	$(CC) $(CFLAGS) $(OBJS) ./ft_printf/libftprintf.a -o $(NAME) -g
 
 $(OBJDIR)%.o : $(SRCDIR)%.c | $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -g
 
 $(OBJDIR):
 	mkdir -p $(OBJDIR)

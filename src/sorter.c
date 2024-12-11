@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:45:46 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/11 15:13:24 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/11 16:08:10 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,18 +91,17 @@ int	get_nearest_higher_idx(t_stack *a, int val_to_push)
  */
 void	push_val(t_stack *a, t_stack *b, int idx)
 {
+	int	direction_a;
+	int	direction_b;
 	int	wanted_idx_b;
 
 	wanted_idx_b = get_nearest_lower_idx(b, a->list[idx]);
-	if (a->top / 2 < idx + 1)
-		a->curr_direction = UP;
-	else
-		a->curr_direction = DOWN;
-	if (b->top / 2 < wanted_idx_b + 1)
-		b->curr_direction = UP;
-	else
-		b->curr_direction = DOWN;
-	// ft_printf("dir:%d\n", a->curr_direction);
+	direction_a = a->top / 2 < idx + 1;
+	direction_b = b->top / 2 < wanted_idx_b + 1;
+	a->curr_direction = a->top / 2 < idx + 1;
+	b->curr_direction = b->top / 2 < wanted_idx_b + 1;
+	// ft_printf("dir: %d, adir: %d\n", direction_a, a->curr_direction);
+	// ft_printf("dir: %d, bdir: %d\n", direction_b, b->curr_direction);
 	rotate_both_till_top(a, b, &idx, &wanted_idx_b);
 	rotate_till_top(a, idx);
 	rotate_till_top(b, wanted_idx_b);
@@ -127,7 +126,7 @@ void	sorter(t_stack *a, t_stack *b)
 	push_b(a, b);
 	while (a->top > 2)
 	{
-		push_val(a, b, a->top - 2);
+		push_val(a, b, a->top);
 	}
 	if (!is_stack_sorted(a))
 		swap_a(a, 0);
@@ -140,7 +139,9 @@ void	sorter(t_stack *a, t_stack *b)
 			rotate_a(a, 0);
 	}
 	while (b->top >= 0)
+	{
 		push_back_to_a(a, b);
-	a->curr_direction = a->top / 2 < get_idx_min_val(a);
+	}
+	a->curr_direction = a->top / 2 < get_idx_min_val(a) + 1;
 	rotate_till_top(a, get_idx_min_val(a));
 }
