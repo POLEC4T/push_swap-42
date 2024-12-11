@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:45:46 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/11 16:08:10 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/11 18:28:46 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,20 @@ int	get_nearest_higher_idx(t_stack *a, int val_to_push)
  * - push to b
  * wanted_idx is the pos of the elem in b above which we want to push our elem
  */
-void	push_val(t_stack *a, t_stack *b, int idx)
+int	push_val(t_stack *a, t_stack *b, int idx, enum e_mode mode)
 {
-	int	direction_a;
-	int	direction_b;
 	int	wanted_idx_b;
+	int	ops_counter;
 
 	wanted_idx_b = get_nearest_lower_idx(b, a->list[idx]);
-	direction_a = a->top / 2 < idx + 1;
-	direction_b = b->top / 2 < wanted_idx_b + 1;
-	a->curr_direction = a->top / 2 < idx + 1;
-	b->curr_direction = b->top / 2 < wanted_idx_b + 1;
-	// ft_printf("dir: %d, adir: %d\n", direction_a, a->curr_direction);
-	// ft_printf("dir: %d, bdir: %d\n", direction_b, b->curr_direction);
-	rotate_both_till_top(a, b, &idx, &wanted_idx_b);
-	rotate_till_top(a, idx);
-	rotate_till_top(b, wanted_idx_b);
-	push_b(a, b);
+	a->direc = a->top / 2 < idx + 1;
+	b->direc = b->top / 2 < wanted_idx_b + 1;
+	ops_counter = rotate_both_till_top(a, b, &idx, &wanted_idx_b, mode);
+	ops_counter += rotate_till_top(a, idx, mode);
+	ops_counter += rotate_till_top(b, wanted_idx_b, mode);
+	if (mode == OPS_MODE)
+		push_b(a, b);
+	return (ops_counter);
 }
 
 void	push_back_to_a(t_stack *a, t_stack *b)
@@ -113,20 +110,51 @@ void	push_back_to_a(t_stack *a, t_stack *b)
 	int	wanted_idx_a;
 
 	wanted_idx_a = get_nearest_higher_idx(a, b->list[b->top]);
-	a->curr_direction = a->top / 2 < wanted_idx_a;
-	rotate_till_top(a, wanted_idx_a);
+	a->direc = a->top / 2 < wanted_idx_a;
+	rotate_till_top(a, wanted_idx_a, OPS_MODE);
 	push_a(a, b);
+}
+
+int	get_cheapest_ops_nb(t_stack *a, t_stack *b)
+{
+	int	i;
+	int	idx_cheapest;
+	int	cheapest_ops;
+	int	nb_ops;
+
+	cheapest_ops = INT_MAX;
+	idx_cheapest = -1;
+	i = a->top;
+	while (i >= 0)
+	{
+		nb_ops = push_val(a, b, i, COUNT_MODE);
+		if (cheapest_ops > nb_ops)
+		{
+			cheapest_ops = nb_ops;
+			idx_cheapest = i;
+		}
+		i--;
+	}
+	return (idx_cheapest);
 }
 
 void	sorter(t_stack *a, t_stack *b)
 {
 	int	idx_min_val;
+	int	idx_cheapest;
 
+	idx_cheapest = -1;
 	push_b(a, b);
 	push_b(a, b);
 	while (a->top > 2)
 	{
-		push_val(a, b, a->top);
+		idx_cheapest = get_cheapest_ops_nb(a, b);
+		if (idx_cheapest == -1)
+		{
+			ft_printf("Warning : idx_cheapest not found\n");
+			idx_cheapest = a->top;
+		}
+		push_val(a, b, idx_cheapest, OPS_MODE);
 	}
 	if (!is_stack_sorted(a))
 		swap_a(a, 0);
@@ -142,6 +170,6 @@ void	sorter(t_stack *a, t_stack *b)
 	{
 		push_back_to_a(a, b);
 	}
-	a->curr_direction = a->top / 2 < get_idx_min_val(a) + 1;
-	rotate_till_top(a, get_idx_min_val(a));
+	a->direc = a->top / 2 < get_idx_min_val(a) + 1;
+	rotate_till_top(a, get_idx_min_val(a), OPS_MODE);
 }

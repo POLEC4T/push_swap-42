@@ -6,61 +6,51 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:17:10 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/11 16:03:43 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/11 17:46:35 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-// void	rotate_both_till_top(t_stack *a, t_stack *b, int *idx,
-// 		int *wanted_idx_b)
-// {
-// 	int	direction_a;
-// 	int	direction_b;
-
-// 	direction_a = a->top / 2 < (*idx) + 1;
-// 	direction_b = b->top / 2 < (*wanted_idx_b) + 1;
-// 	if (direction_a == UP && direction_b == UP)
-// 	{
-// 		while ((*idx) != a->top && (*wanted_idx_b) != b->top)
-// 		{
-// 			rotate_anb(a, b);
-// 			(*wanted_idx_b)++;
-// 			(*idx)++;
-// 		}
-// 	}
-// 	else if (direction_a == DOWN && direction_b == DOWN)
-// 	{
-// 		while ((*idx) >= 0 && (*wanted_idx_b) >= 0)
-// 		{
-// 			reverse_rotate_anb(a, b);
-// 			(*wanted_idx_b)--;
-// 			(*idx)--;
-// 		}
-// 	}
-// }
-
-void	rotate_both_till_top(t_stack *a, t_stack *b, int *idx,
-		int *wanted_idx_b)
+void	update_indices(t_stack *a, t_stack *b, int *idx, int *wanted_idx_b)
 {
-	if (a->curr_direction == UP && b->curr_direction == UP)
+	if (a->direc == UP && b->direc == UP)
 	{
-		while ((*idx) != a->top && (*wanted_idx_b) != b->top)
-		{
-			rotate_anb(a, b);
-			(*wanted_idx_b)++;
-			(*idx)++;
-		}
+		(*wanted_idx_b)++;
+		(*idx)++;
 	}
-	else if (a->curr_direction == DOWN && b->curr_direction == DOWN)
+	else if (a->direc == DOWN && b->direc == DOWN)
 	{
-		while ((*idx) >= 0 && (*wanted_idx_b) >= 0)
-		{
-			reverse_rotate_anb(a, b);
-			(*wanted_idx_b)--;
-			(*idx)--;
-		}
+		(*wanted_idx_b)--;
+		(*idx)--;
 	}
+}
+
+/**
+ *
+ */
+int	rotate_both_till_top(t_stack *a, t_stack *b, int *idx, int *wanted_idx_b,
+		enum e_mode mode)
+{
+	int	op_counter;
+
+	op_counter = 0;
+	while ((a->direc == UP && *idx != a->top && b->direc == UP
+			&& *wanted_idx_b != b->top) || (a->direc == DOWN && *idx >= 0
+			&& b->direc == DOWN && *wanted_idx_b >= 0))
+	{
+		if (mode == OPS_MODE)
+		{
+			if (a->direc == UP && b->direc == UP)
+				rotate_anb(a, b);
+			else if (a->direc == DOWN && b->direc == DOWN)
+				reverse_rotate_anb(a, b);
+		}
+		else if (mode == COUNT_MODE)
+			op_counter++;
+		update_indices(a, b, idx, wanted_idx_b);
+	}
+	return (op_counter);
 }
 
 int	is_stack_sorted(t_stack *s)

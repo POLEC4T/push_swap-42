@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:24:28 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/11 16:21:09 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/11 18:04:14 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,29 @@ int	rotate_b(t_stack *b, int is_rr)
 	}
 	if (!is_rr)
 		ft_printf("rb\n");
+	return (1);
+}
+
+int	rotate(t_stack *s, int is_rr)
+{
+	int	tmp;
+	int	i;
+
+	i = s->top;
+	while (i)
+	{
+		tmp = s->list[i - 1];
+		s->list[i - 1] = s->list[i];
+		s->list[i] = tmp;
+		i--;
+	}
+	if (!is_rr)
+	{
+		if (s->stack_id == STACK_A)
+			ft_printf("ra\n");
+		else if (s->stack_id == STACK_B)
+			ft_printf("rb\n");
+	}
 	return (1);
 }
 /**
