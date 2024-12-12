@@ -6,11 +6,26 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:17:10 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/11 17:46:35 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/12 16:03:23 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
+
+int	process_rotates(t_stack *a, t_stack *b, int i_a, int i_b,
+		enum e_operation_mode op_mode)
+{
+	int	ops_counter;
+	int	idx;
+	int	wanted_idx_b;
+
+	idx = i_a;
+	wanted_idx_b = i_b;
+	ops_counter = rotate_both_till_top(a, b, &idx, &wanted_idx_b, op_mode);
+	ops_counter += rotate_till_top(a, idx, op_mode);
+	ops_counter += rotate_till_top(b, wanted_idx_b, op_mode);
+	return (ops_counter);
+}
 
 void	update_indices(t_stack *a, t_stack *b, int *idx, int *wanted_idx_b)
 {
@@ -29,26 +44,26 @@ void	update_indices(t_stack *a, t_stack *b, int *idx, int *wanted_idx_b)
 /**
  *
  */
-int	rotate_both_till_top(t_stack *a, t_stack *b, int *idx, int *wanted_idx_b,
-		enum e_mode mode)
+int	rotate_both_till_top(t_stack *a, t_stack *b, int *i_a, int *i_b,
+		enum e_operation_mode mode)
 {
 	int	op_counter;
 
 	op_counter = 0;
-	while ((a->direc == UP && *idx != a->top && b->direc == UP
-			&& *wanted_idx_b != b->top) || (a->direc == DOWN && *idx >= 0
-			&& b->direc == DOWN && *wanted_idx_b >= 0))
+	while ((a->direc == UP && *i_a != a->top && b->direc == UP
+			&& *i_b != b->top) || (a->direc == DOWN && *i_a >= 0
+			&& b->direc == DOWN && *i_b >= 0))
 	{
-		if (mode == OPS_MODE)
+		if (mode == MODE_EXECUTE)
 		{
 			if (a->direc == UP && b->direc == UP)
 				rotate_anb(a, b);
 			else if (a->direc == DOWN && b->direc == DOWN)
 				reverse_rotate_anb(a, b);
 		}
-		else if (mode == COUNT_MODE)
+		else if (mode == MODE_COUNT)
 			op_counter++;
-		update_indices(a, b, idx, wanted_idx_b);
+		update_indices(a, b, i_a, i_b);
 	}
 	return (op_counter);
 }
@@ -85,8 +100,11 @@ int	get_idx_min_val(t_stack *s)
 
 	i = s->top;
 	idx_min = s->top;
-	while (--i >= 0)
+	while (i >= 0)
+	{
 		if (s->list[i] < s->list[idx_min])
 			idx_min = i;
+		i--;
+	}
 	return (idx_min);
 }

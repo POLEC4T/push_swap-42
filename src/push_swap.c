@@ -6,12 +6,12 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 14:25:57 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/11 14:42:50 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/12 17:04:00 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
 #include "../ft_printf/include/ft_printf.h"
+#include "../include/push_swap.h"
 
 void	initialize_stacks(t_stack *a, t_stack *b, char **av, int ac)
 {
@@ -43,27 +43,22 @@ void	initialize_stacks(t_stack *a, t_stack *b, char **av, int ac)
 
 int	main(int ac, char **av)
 {
-	(void)ac;
-    t_stack a;
-    t_stack b;
+	t_stack	a;
+	t_stack	b;
 
 	if (!input_only_nb(av + 1) || ac < 2)
-    {
+	{
 		ft_printf(ERROR);
-        exit(1);
-    }
-    initialize_stacks(&a, &b, av, ac);
+		exit(1);
+	}
+	initialize_stacks(&a, &b, av, ac);
 	if (got_duplicates(&a))
 	{
 		ft_printf(ERROR);
 		free_stacks(&a, &b);
-        exit(1);
-    }
+		exit(1);
+	}
 	sorter(&a, &b);
-	// push_b(&a, &b);
-	// push_b(&a, &b);
-	// ft_printf("is sorted : %d\n", is_stack_sorted(&a));
-	// print_stack(&a);
 	free(a.list);
 	free(b.list);
 }

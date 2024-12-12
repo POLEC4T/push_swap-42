@@ -6,30 +6,39 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:07:20 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/10 16:13:05 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/12 16:24:22 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-/**
- * @param s the stack
- * @param idx the index of the element to put at the top of s
- * @return the number of every operations that would be
- * needed to put the elem to the top of the stack s
- */
-int get_cost_put_to_top(t_stack *s, int idx)
+void	change_direc_if_worth(t_stack *a, t_stack *b, int i_a, int i_b)
 {
-    int cost;
+	int ops_counter;
+	int cheap_ops_counter;
+	int cheap_direc_b;
+	int cheap_direc_a;
+	int i;
+	// int *todo = [ {UP, DOWN} ];
 
-    cost = 0;
-    while (idx != s->top && idx >= 0)
+	ops_counter = process_rotates(a, b, i_a, i_b, MODE_COUNT);
+	cheap_ops_counter = ops_counter;
+	cheap_direc_a = a->direc;
+	cheap_direc_b = b->direc;
+	i = 0;
+	while (i <= 1)
 	{
-		if (idx > s->top / 2)
-			idx++;
-		else
-			idx--;
-        cost++;
+		a->direc = i;
+		b->direc = i;
+		ops_counter = process_rotates(a, b, i_a, i_b, MODE_COUNT);
+		if (ops_counter < cheap_ops_counter)
+		{
+			cheap_ops_counter = ops_counter;
+			cheap_direc_a = a->direc;
+			cheap_direc_b = b->direc;
+		}
+		i++;
 	}
-    return (cost);
+	a->direc = cheap_direc_a;
+	b->direc = cheap_direc_b;
 }

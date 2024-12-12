@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:37:49 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/11 17:08:33 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/12 16:57:42 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,51 +61,23 @@ void	free_stacks(t_stack *a, t_stack *b)
 	free(b->list);
 }
 
-// int	rotate_till_top(t_stack *s, int idx, enum e_mode mode)
-// {
-// 	int	ops_counter;
-
-// 	ops_counter = 0;
-// 	if (s->direc == UP)
-// 	{
-// 		while (idx != s->top)
-// 		{
-// 			if (mode == OPS_MODE)
-// 				rotate(s, 0);
-// 			else if (mode == COUNT_MODE)
-// 				ops_counter++;
-// 			idx++;
-// 		}
-// 	}
-// 	else if (s->direc == DOWN)
-// 	{
-// 		while (idx >= 0)
-// 		{
-// 			if (mode == OPS_MODE)
-// 				reverse_rotate(s, 0);
-// 			else if (mode == COUNT_MODE)
-// 				ops_counter++;
-// 			idx--;
-// 		}
-// 	}
-// 	return (ops_counter);
-// }
-
-int	rotate_till_top(t_stack *s, int idx, enum e_mode mode)
+int	rotate_till_top(t_stack *s, int idx, enum e_operation_mode mode)
 {
 	int	ops_counter;
 
+	if (idx == s->top)
+		return (0);
 	ops_counter = 0;
 	while ((s->direc == UP && idx != s->top) || (s->direc == DOWN && idx >= 0))
 	{
-		if (mode == OPS_MODE)
+		if (mode == MODE_EXECUTE)
 		{
 			if (s->direc == UP)
-				rotate(s, 0);
+				rotate(s, PRINT);
 			else
-				reverse_rotate(s, 0);
+				reverse_rotate(s, PRINT);
 		}
-		else if (mode == COUNT_MODE)
+		else if (mode == MODE_COUNT)
 			ops_counter++;
 		if (s->direc == UP)
 			idx++;
