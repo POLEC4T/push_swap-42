@@ -6,19 +6,13 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:45:46 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/12 17:07:24 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/13 15:58:54 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf/include/ft_printf.h"
 #include "../include/push_swap.h"
 
-/**
- * - rotate val to top of a
- * - rotate b to the pos wanted
- * - push to b
- * wanted_idx is the pos of the elem in b above which we want to push our elem
- */
 int	push_val(t_stack *a, t_stack *b, int idx, enum e_operation_mode op_mode)
 {
 	int					wanted_idx_b;
@@ -56,8 +50,7 @@ int	push_back_to_a(t_stack *a, t_stack *b, int idx,
 	return (ops_counter);
 }
 
-int	get_cheapest_ops_nb(t_stack *a, t_stack *b, int (*push_func)(t_stack *a,
-			t_stack *b, int idx, enum e_operation_mode op_mode))
+int	get_cheapest_ops_nb(t_stack *a, t_stack *b)
 {
 	int	i;
 	int	idx_cheapest;
@@ -69,7 +62,7 @@ int	get_cheapest_ops_nb(t_stack *a, t_stack *b, int (*push_func)(t_stack *a,
 	i = a->top;
 	while (i >= 0)
 	{
-		nb_ops = push_func(a, b, i, MODE_COUNT);
+		nb_ops = push_val(a, b, i, MODE_COUNT);
 		if (cheapest_ops > nb_ops)
 		{
 			cheapest_ops = nb_ops;
@@ -82,8 +75,7 @@ int	get_cheapest_ops_nb(t_stack *a, t_stack *b, int (*push_func)(t_stack *a,
 
 void	sorter(t_stack *a, t_stack *b)
 {
-	int	idx_cheapest;
-
+	int tmp;
 	if (is_stack_sorted(a))
 	{
 		a->direc = a->top / 2 < get_idx_min_val(a) + 1;
@@ -96,15 +88,19 @@ void	sorter(t_stack *a, t_stack *b)
 		push_b(a, b);
 	while (a->top > 2)
 	{
-		idx_cheapest = get_cheapest_ops_nb(a, b, &push_val);
-		if (idx_cheapest == -1)
-			idx_cheapest = a->top;
-		push_val(a, b, idx_cheapest, MODE_EXECUTE);
+		tmp = get_cheapest_ops_nb(a, b);
+		if (tmp == -1)
+		{
+			ft_printf("Warning : no cheapest found");
+			tmp = a->top;
+		}
+		push_val(a, b, tmp, MODE_EXECUTE);
 	}
 	if (!is_stack_sorted(a))
 		swap_a(a, 0);
 	while (b->top >= 0)
 		push_back_to_a(a, b, b->top, MODE_EXECUTE);
-	a->direc = a->top / 2 < get_idx_min_val(a) + 1;
+	// ft_printf("a->top %d, (get_idx_min_val(a) + 1) %d\n", a->top, (get_idx_min_val(a) + 1));
+	a->direc = (a->top / 2) < (get_idx_min_val(a) + 1);
 	rotate_till_top(a, get_idx_min_val(a), MODE_EXECUTE);
 }

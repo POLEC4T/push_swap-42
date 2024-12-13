@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 14:25:57 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/12 17:04:00 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/13 16:20:10 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,13 @@ int	main(int ac, char **av)
 {
 	t_stack	a;
 	t_stack	b;
+	// t_stack	*save_a;
+	// t_stack	*save_b;
 
+	// a = malloc(sizeof(t_stack));
+	// b = malloc(sizeof(t_stack));
+	// save_a = a;
+	// save_b = b;
 	if (!input_only_nb(av + 1) || ac < 2)
 	{
 		ft_printf(ERROR);
@@ -59,6 +65,5 @@ int	main(int ac, char **av)
 		exit(1);
 	}
 	sorter(&a, &b);
-	free(a.list);
-	free(b.list);
+	free_stacks(&a, &b);
 }

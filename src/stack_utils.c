@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:37:49 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/12 16:57:42 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/13 16:09:48 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	free_stacks(t_stack *a, t_stack *b)
 {
 	free(a->list);
 	free(b->list);
+	// free(a);
+	// free(b);
 }
 
 int	rotate_till_top(t_stack *s, int idx, enum e_operation_mode mode)
@@ -68,6 +70,7 @@ int	rotate_till_top(t_stack *s, int idx, enum e_operation_mode mode)
 	if (idx == s->top)
 		return (0);
 	ops_counter = 0;
+	// ft_printf("s->direc %d, s->direc == UP %d\n", s->direc, s->direc == UP);
 	while ((s->direc == UP && idx != s->top) || (s->direc == DOWN && idx >= 0))
 	{
 		if (mode == MODE_EXECUTE)

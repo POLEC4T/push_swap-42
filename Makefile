@@ -10,11 +10,13 @@ SRCS = $(SRCDIR)push_swap.c \
 		$(SRCDIR)input_check.c \
 		$(SRCDIR)stack_utils.c \
 		$(SRCDIR)stack_utils2.c \
+		$(SRCDIR)stack_utils3.c \
 		$(SRCDIR)ops_push.c \
 		$(SRCDIR)ops_rotate.c \
 		$(SRCDIR)ops_rev_rotate.c \
 		$(SRCDIR)ops_swap.c \
 		$(SRCDIR)sorter.c \
+		$(SRCDIR)calc_costs.c
 
 OBJS = ${SRCS:$(SRCDIR)%.c=$(OBJDIR)%.o}
 

@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:17:10 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/12 16:03:23 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/13 12:53:23 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,14 @@ int	is_stack_sorted(t_stack *s)
 			return (0);
 	return (1);
 }
+
 /**
  * get the index of the minimum value of the stack
  */
 int	get_idx_min_val(t_stack *s)
 {
-	int i;
-	int idx_min;
+	int	i;
+	int	idx_min;
 
 	i = s->top;
 	idx_min = s->top;

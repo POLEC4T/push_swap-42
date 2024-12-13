@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:51:35 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/10 11:37:22 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/13 12:50:10 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	input_only_nb(char **input)
 
 int	got_duplicates(t_stack *s)
 {
-	int i;
-	int j;
-	int counter;
+	int	i;
+	int	j;
+	int	counter;
 
 	i = 0;
 	while (i <= s->top)
