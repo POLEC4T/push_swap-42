@@ -6,11 +6,10 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:44:45 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/13 12:49:23 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/14 18:11:19 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf/include/ft_printf.h"
 #include "../include/push_swap.h"
 
 int	handle_overflows(int sign, unsigned long res, unsigned long limit,
@@ -44,7 +43,7 @@ int	ft_atoi(const char *nptr, t_stack *a, t_stack *b)
 		if (!handle_overflows(sign, res, limit, nptr[i] - '0'))
 		{
 			free_stacks(a, b);
-			ft_printf(ERROR);
+			write(2, ERROR, 6);
 			exit(1);
 		}
 		res = res * 10 + nptr[i++] - '0';

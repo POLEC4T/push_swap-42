@@ -24,22 +24,19 @@ NAME = push_swap
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(INCDIR)push_swap.h Makefile
-	cd ./ft_printf/ && $(MAKE)
-	$(CC) $(CFLAGS) $(OBJS) ./ft_printf/libftprintf.a -o $(NAME) -g
+$(NAME): $(OBJS) Makefile $(INCDIR)push_swap.h
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 $(OBJDIR)%.o : $(SRCDIR)%.c | $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@ -g
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
 clean :
-	cd ./ft_printf && $(MAKE) clean
 	rm -rf $(OBJDIR)
 
 fclean :
-	cd ./ft_printf && $(MAKE) fclean
 	rm -rf $(OBJDIR) $(NAME)
 
 re : fclean all

@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:07:20 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/14 10:31:22 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/14 15:37:08 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void	change_direc_if_worth(t_stack *a, t_stack *b)
 	int	cheap_direc_a;
 	int	i;
 
-	ops_counter = process_rotates(a, b, a->idx_to_top, b->idx_to_top,
-			MODE_COUNT);
+	ops_counter = rotate_both_till_top(a, b, MODE_COUNT);
 	cheap_ops_counter = ops_counter;
 	cheap_direc_a = a->direc;
 	cheap_direc_b = b->direc;
@@ -30,8 +29,7 @@ void	change_direc_if_worth(t_stack *a, t_stack *b)
 	{
 		a->direc = i;
 		b->direc = i;
-		ops_counter = process_rotates(a, b, a->idx_to_top, b->idx_to_top,
-				MODE_COUNT);
+		ops_counter = rotate_both_till_top(a, b, MODE_COUNT);
 		if (ops_counter < cheap_ops_counter)
 		{
 			cheap_ops_counter = ops_counter;

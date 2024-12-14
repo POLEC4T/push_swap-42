@@ -6,25 +6,28 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 14:25:57 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/14 10:10:31 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/14 18:12:40 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf/include/ft_printf.h"
 #include "../include/push_swap.h"
 
 int	*init_stack(t_stack *s, int stack_size, enum e_stack_id stack_id)
 {
 	s->top = -1;
 	s->direc = UP;
-	s->max_stack_size = stack_size;
+	s->max_top_idx = stack_size;
 	s->stack_id = stack_id;
 	s->list = malloc((stack_size) * sizeof(int));
 	s->idx_to_top = -1;
 	return (s->list);
 }
 
-void	initialize_stacks(t_stack *a, t_stack *b, char **av, int ac)
+/**
+ * initializes a and b stacks
+ * fill a with argv
+ */
+void	setup_stacks(t_stack *a, t_stack *b, char **av, int ac)
 {
 	init_stack(a, ac - 1, STACK_A);
 	if (!a->list)
@@ -42,55 +45,21 @@ void	initialize_stacks(t_stack *a, t_stack *b, char **av, int ac)
 	}
 }
 
-// int	main(int ac, char **av)
-// {
-// 	t_stack	*a;
-// 	t_stack	*b;
-
-// 	t_stack	*save_a;
-// 	t_stack	*save_b;
-// 	a = malloc(sizeof(t_stack));
-// 	b = malloc(sizeof(t_stack));
-// 	save_a = a;
-// 	save_b = b;
-// 	if (!input_only_nb(av + 1) || ac < 2)
-// 	{
-// 		ft_printf(ERROR);
-// 		exit(1);
-// 	}
-// 	initialize_stacks(a, b, av, ac);
-// 	if (got_duplicates(a))
-// 	{
-// 		ft_printf(ERROR);
-// 		free_stacks(a, b);
-// 		exit(1);
-// 	}
-// 	sorter(a, b);
-// 	free_stacks(save_a, save_b);
-// }
-
-#include <stdio.h>
-
 int	main(int ac, char **av)
 {
 	t_stack	a;
 	t_stack	b;
 
-	// t_stack	*save_a;
-	// t_stack	*save_b;
-	// a = malloc(sizeof(t_stack));
-	// b = malloc(sizeof(t_stack));
-	// save_a = a;
-	// save_b = b;
+	__builtin_printf("%s %s", av[0], av[1]);
 	if (!input_only_nb(av + 1) || ac < 2)
 	{
-		ft_printf(ERROR);
+		write(2, ERROR, 6);
 		exit(1);
 	}
-	initialize_stacks(&a, &b, av, ac);
+	setup_stacks(&a, &b, av, ac);
 	if (got_duplicates(&a))
 	{
-		ft_printf(ERROR);
+		write(2, ERROR, 6);
 		free_stacks(&a, &b);
 		exit(1);
 	}

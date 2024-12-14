@@ -3,3 +3,4 @@ push_swap
 *.out
 push_swap_visualizer
 checker_linux*
+scros_tester

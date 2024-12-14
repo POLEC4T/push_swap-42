@@ -6,24 +6,11 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:17:10 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/14 11:17:44 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/14 16:50:51 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
-
-int	process_rotates(t_stack *a, t_stack *b, int i_a, int i_b,
-		enum e_operation_mode op_mode)
-{
-	int	ops_counter;
-	int	idx;
-	int	wanted_idx_b;
-
-	idx = i_a;
-	wanted_idx_b = i_b;
-	ops_counter = rotate_both_till_top(a, b, idx, wanted_idx_b, op_mode);
-	return (ops_counter);
-}
 
 void	update_indices(t_stack *a, t_stack *b, int *idx, int *wanted_idx_b)
 {
@@ -40,17 +27,25 @@ void	update_indices(t_stack *a, t_stack *b, int *idx, int *wanted_idx_b)
 }
 
 /**
- *
+ * @brief rotates or reverse rotates stack a and b
+ * - first, it tries to rotate both down or both up, stops
+ * when one of the two "s"->idx_to_top reached the top
+ * - then, calls rotate_till_top to let the stack that did not
+ * reach the top reach it
+ * @warning a->idx_to_top and b->idx_to_top must be set before
+ * calling this function
  */
-int	rotate_both_till_top(t_stack *a, t_stack *b, int i_a, int i_b,
-		enum e_operation_mode mode)
+int	rotate_both_till_top(t_stack *a, t_stack *b, enum e_operation_mode mode)
 {
 	int	ops_counter;
+	int	i_a;
+	int	i_b;
 
 	ops_counter = 0;
-	while ((a->direc == UP && i_a != a->top && b->direc == UP
-			&& i_b != b->top) || (a->direc == DOWN && i_a >= 0
-			&& b->direc == DOWN && i_b >= 0))
+	i_a = a->idx_to_top;
+	i_b = b->idx_to_top;
+	while ((a->direc == UP && i_a != a->top && b->direc == UP && i_b != b->top)
+		|| (a->direc == DOWN && i_a >= 0 && b->direc == DOWN && i_b >= 0))
 	{
 		if (mode == MODE_EXECUTE)
 		{
@@ -68,31 +63,34 @@ int	rotate_both_till_top(t_stack *a, t_stack *b, int i_a, int i_b,
 	return (ops_counter);
 }
 
-int	is_stack_sorted(t_stack *s)
+int	rotate_till_top(t_stack *s, int idx, enum e_operation_mode mode)
 {
-	int	i;
-	int	idx_min;
+	int	ops_counter;
 
-	i = s->top;
-	idx_min = s->top;
-	while (--i >= 0)
-		if (s->list[i] < s->list[idx_min])
-			idx_min = i;
-	i = idx_min + 1;
-	while (--i > 0)
-		if (s->list[i] > s->list[i - 1])
-			return (0);
-	if (idx_min < s->top && s->list[0] > s->list[s->top])
+	if (idx == s->top)
 		return (0);
-	i = s->top + 1;
-	while (--i - 1 > idx_min)
-		if (s->list[i] > s->list[i - 1])
-			return (0);
-	return (1);
+	ops_counter = 0;
+	while ((s->direc == UP && idx != s->top) || (s->direc == DOWN && idx >= 0))
+	{
+		if (mode == MODE_EXECUTE)
+		{
+			if (s->direc == UP)
+				rotate(s, PRINT);
+			else
+				reverse_rotate(s, PRINT);
+		}
+		else if (mode == MODE_COUNT)
+			ops_counter++;
+		if (s->direc == UP)
+			idx++;
+		else
+			idx--;
+	}
+	return (ops_counter);
 }
 
 /**
- * get the index of the minimum value of the stack
+ * @brief get the index of the minimum value of the stack
  */
 int	get_idx_min_val(t_stack *s)
 {

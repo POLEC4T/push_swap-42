@@ -6,12 +6,15 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:51:35 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/13 12:50:10 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/14 16:51:16 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
+/**
+ * @returns 0 if argv + 1 contains anything else than numbers of dashes
+ */
 int	input_only_nb(char **input)
 {
 	int	i;
@@ -29,6 +32,9 @@ int	input_only_nb(char **input)
 	return (1);
 }
 
+/**
+ * @returns 1 if the stack s contains the same value mutiple times
+ */
 int	got_duplicates(t_stack *s)
 {
 	int	i;

@@ -6,13 +6,17 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:24:28 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/12 10:54:00 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/14 18:11:49 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf/include/ft_printf.h"
+
 #include "../include/push_swap.h"
 
+/**
+ * shift up every element of the stack s,
+	first element becomes the last one
+ */
 int	rotate(t_stack *s, enum e_print print_mode)
 {
 	int	tmp;
@@ -29,20 +33,21 @@ int	rotate(t_stack *s, enum e_print print_mode)
 	if (print_mode == PRINT)
 	{
 		if (s->stack_id == STACK_A)
-			ft_printf("ra\n");
+			write(1, "ra\n", 3);
 		else if (s->stack_id == STACK_B)
-			ft_printf("rb\n");
+			write(1, "rb\n", 3);
 	}
 	return (1);
 }
 
 /**
- * shift up every element, first one becomes the last one
+ * shift up every element of both stacks a and b,
+	first element becomes the last one
  */
 int	rotate_anb(t_stack *a, t_stack *b)
 {
 	rotate(a, NO_PRINT);
 	rotate(b, NO_PRINT);
-	ft_printf("rr\n");
+	write(1, "rr\n", 3);
 	return (1);
 }
