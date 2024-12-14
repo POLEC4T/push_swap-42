@@ -24,7 +24,7 @@ NAME = push_swap
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(INCDIR)push_swap.h
+$(NAME): $(OBJS) $(INCDIR)push_swap.h Makefile
 	cd ./ft_printf/ && $(MAKE)
 	$(CC) $(CFLAGS) $(OBJS) ./ft_printf/libftprintf.a -o $(NAME) -g
 

@@ -6,13 +6,13 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:07:20 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/13 12:51:13 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/14 10:31:22 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-void	change_direc_if_worth(t_stack *a, t_stack *b, int i_a, int i_b)
+void	change_direc_if_worth(t_stack *a, t_stack *b)
 {
 	int	ops_counter;
 	int	cheap_ops_counter;
@@ -20,7 +20,8 @@ void	change_direc_if_worth(t_stack *a, t_stack *b, int i_a, int i_b)
 	int	cheap_direc_a;
 	int	i;
 
-	ops_counter = process_rotates(a, b, i_a, i_b, MODE_COUNT);
+	ops_counter = process_rotates(a, b, a->idx_to_top, b->idx_to_top,
+			MODE_COUNT);
 	cheap_ops_counter = ops_counter;
 	cheap_direc_a = a->direc;
 	cheap_direc_b = b->direc;
@@ -29,7 +30,8 @@ void	change_direc_if_worth(t_stack *a, t_stack *b, int i_a, int i_b)
 	{
 		a->direc = i;
 		b->direc = i;
-		ops_counter = process_rotates(a, b, i_a, i_b, MODE_COUNT);
+		ops_counter = process_rotates(a, b, a->idx_to_top, b->idx_to_top,
+				MODE_COUNT);
 		if (ops_counter < cheap_ops_counter)
 		{
 			cheap_ops_counter = ops_counter;

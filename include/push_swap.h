@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 15:40:03 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/13 15:58:20 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/14 10:47:43 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_stack
 	int					*list;
 	int					top;
 	int					max_stack_size;
+	int					idx_to_top;
 	enum e_stack_id		stack_id;
 	enum e_direction	direc;
 }						t_stack;
@@ -69,15 +70,13 @@ void					free_stacks(t_stack *a, t_stack *b);
 int						got_duplicates(t_stack *s);
 int						input_only_nb(char **input);
 void					sorter(t_stack *a, t_stack *b);
-int						get_cost_put_to_top(t_stack *s, int idx);
 int						rotate_till_top(t_stack *s, int idx,
 							enum e_operation_mode mode);
 int						rotate_both_till_top(t_stack *a, t_stack *b, int *idx,
 							int *wanted_idx_b, enum e_operation_mode mode);
 int						is_stack_sorted(t_stack *s);
 int						get_idx_min_val(t_stack *s);
-void					change_direc_if_worth(t_stack *a, t_stack *b, int i_a,
-							int i_b);
+void					change_direc_if_worth(t_stack *a, t_stack *b);
 int						process_rotates(t_stack *a, t_stack *b, int i_a,
 							int i_b, enum e_operation_mode op_mode);
 int						get_nearest_lower_idx(t_stack *b, int val_to_push);
