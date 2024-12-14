@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:17:10 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/14 11:12:28 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/14 11:17:44 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ int	process_rotates(t_stack *a, t_stack *b, int i_a, int i_b,
 
 	idx = i_a;
 	wanted_idx_b = i_b;
-	ops_counter = rotate_both_till_top(a, b, &idx, &wanted_idx_b, op_mode);
-	ops_counter += rotate_till_top(a, idx, op_mode);
-	ops_counter += rotate_till_top(b, wanted_idx_b, op_mode);
+	ops_counter = rotate_both_till_top(a, b, idx, wanted_idx_b, op_mode);
 	return (ops_counter);
 }
 
@@ -44,15 +42,15 @@ void	update_indices(t_stack *a, t_stack *b, int *idx, int *wanted_idx_b)
 /**
  *
  */
-int	rotate_both_till_top(t_stack *a, t_stack *b, int *i_a, int *i_b,
+int	rotate_both_till_top(t_stack *a, t_stack *b, int i_a, int i_b,
 		enum e_operation_mode mode)
 {
-	int	op_counter;
+	int	ops_counter;
 
-	op_counter = 0;
-	while ((a->direc == UP && *i_a != a->top && b->direc == UP
-			&& *i_b != b->top) || (a->direc == DOWN && *i_a >= 0
-			&& b->direc == DOWN && *i_b >= 0))
+	ops_counter = 0;
+	while ((a->direc == UP && i_a != a->top && b->direc == UP
+			&& i_b != b->top) || (a->direc == DOWN && i_a >= 0
+			&& b->direc == DOWN && i_b >= 0))
 	{
 		if (mode == MODE_EXECUTE)
 		{
@@ -62,10 +60,12 @@ int	rotate_both_till_top(t_stack *a, t_stack *b, int *i_a, int *i_b,
 				reverse_rotate_anb(a, b);
 		}
 		else if (mode == MODE_COUNT)
-			op_counter++;
-		update_indices(a, b, i_a, i_b);
+			ops_counter++;
+		update_indices(a, b, &i_a, &i_b);
 	}
-	return (op_counter);
+	ops_counter += rotate_till_top(a, i_a, mode);
+	ops_counter += rotate_till_top(b, i_b, mode);
+	return (ops_counter);
 }
 
 int	is_stack_sorted(t_stack *s)

@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 15:40:03 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/14 10:47:43 by mniemaz          ###   ########.fr       */
+/*   Updated: 2024/12/14 11:17:51 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int						input_only_nb(char **input);
 void					sorter(t_stack *a, t_stack *b);
 int						rotate_till_top(t_stack *s, int idx,
 							enum e_operation_mode mode);
-int						rotate_both_till_top(t_stack *a, t_stack *b, int *idx,
-							int *wanted_idx_b, enum e_operation_mode mode);
+int						rotate_both_till_top(t_stack *a, t_stack *b, int idx,
+							int wanted_idx_b, enum e_operation_mode mode);
 int						is_stack_sorted(t_stack *s);
 int						get_idx_min_val(t_stack *s);
 void					change_direc_if_worth(t_stack *a, t_stack *b);
