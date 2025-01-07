@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:07:50 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/01/07 16:15:20 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/01/07 18:36:06 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	get_nearest_lower_idx(t_stack *b, int val_to_push)
 	i = b->top;
 	while (i >= 0)
 	{
-		if (b->list[i] < val_to_push && (b->list[i] > nearest_lower))
+		if (b->list[i] < val_to_push && (b->list[i] >= nearest_lower))
 		{
 			i_nearest_lower = i;
 			nearest_lower = b->list[i];
@@ -68,7 +68,7 @@ int	get_nearest_higher_idx(t_stack *a, int val_to_push)
 	i = a->top;
 	while (i >= 0)
 	{
-		if (a->list[i] > val_to_push && (a->list[i] < nearest_higher))
+		if (a->list[i] > val_to_push && (a->list[i] <= nearest_higher))
 		{
 			i_nearest_higher = i;
 			nearest_higher = a->list[i];
