@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:45:46 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/01/07 14:42:36 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/01/07 16:50:04 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
  * @details if op_mode is COUNT_MODE, it only count how many operations
  * would have been made, without doing any operation
  */
-static int	push_opti_to_b(t_stack *a, t_stack *b, enum e_operation_mode op_mode)
+static int	push_opti_to_b(t_stack *a, t_stack *b,
+		enum e_operation_mode op_mode)
 {
 	int	ops_counter;
 
