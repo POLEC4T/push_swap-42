@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:37:49 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/14 18:12:00 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/01/07 13:50:51 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,6 @@ void	push(t_stack *s, int val)
 	s->list[s->top] = val;
 }
 
-void	free_stacks(t_stack *a, t_stack *b)
-{
-	free(a->list);
-	free(b->list);
-}
-
 /**
  * @returns 1 if the stack is sorted from the minimum value
  * to the maximum value.
@@ -62,7 +56,7 @@ int	is_stack_sorted(t_stack *s)
 	int	idx_min;
 
 	idx_min = get_idx_min_val(s);
-	i = s->top;
+	i = idx_min;
 	while (--i > 0)
 		if (s->list[i] > s->list[i - 1])
 			return (0);

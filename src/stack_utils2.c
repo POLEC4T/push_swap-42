@@ -6,13 +6,13 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 19:17:10 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/14 16:50:51 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/01/07 14:40:22 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-void	update_indices(t_stack *a, t_stack *b, int *idx, int *wanted_idx_b)
+static void	update_indices(t_stack *a, t_stack *b, int *idx, int *wanted_idx_b)
 {
 	if (a->direc == UP && b->direc == UP)
 	{

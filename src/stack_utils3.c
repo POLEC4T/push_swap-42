@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:07:50 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/14 15:36:56 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/01/07 14:50:27 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,15 @@ int	get_nearest_higher_idx(t_stack *a, int val_to_push)
 	if (i_nearest_higher == -1)
 		i_nearest_higher = idx_smallest;
 	return (i_nearest_higher);
+}
+
+int	*init_stack(t_stack *s, int stack_size, enum e_stack_id stack_id)
+{
+	s->top = -1;
+	s->direc = UP;
+	s->max_top_idx = stack_size;
+	s->stack_id = stack_id;
+	s->list = malloc((stack_size) * sizeof(int));
+	s->idx_to_top = -1;
+	return (s->list);
 }

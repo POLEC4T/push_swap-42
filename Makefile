@@ -16,7 +16,10 @@ SRCS = $(SRCDIR)push_swap.c \
 		$(SRCDIR)ops_rev_rotate.c \
 		$(SRCDIR)ops_swap.c \
 		$(SRCDIR)sorter.c \
-		$(SRCDIR)calc_costs.c
+		$(SRCDIR)calc_costs.c \
+		$(SRCDIR)ft_split.c \
+		$(SRCDIR)frees.c \
+		$(SRCDIR)utils.c
 
 OBJS = ${SRCS:$(SRCDIR)%.c=$(OBJDIR)%.o}
 
@@ -24,10 +27,10 @@ NAME = push_swap
 
 all: $(NAME)
 
-$(NAME): $(OBJS) Makefile $(INCDIR)push_swap.h
+$(NAME): $(OBJS) Makefile
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-$(OBJDIR)%.o : $(SRCDIR)%.c | $(OBJDIR)
+$(OBJDIR)%.o : $(SRCDIR)%.c $(INCDIR)push_swap.h | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR):
