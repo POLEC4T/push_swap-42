@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 15:40:03 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/01/07 15:10:35 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/01/07 16:34:20 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,12 @@ int						get_nearest_lower_idx(t_stack *b, int val_to_push);
 int						get_nearest_higher_idx(t_stack *a, int val_to_push);
 char					**ft_split(char const *s, char c);
 void					free_tab_str(char **tab);
-int						*init_stack(t_stack *s, int stack_size,
-							enum e_stack_id stack_id);
 int						strtab_len(char **strtab);
 void					write_error_exit(void);
+void					write_error_freestacks_exit(t_stack *a, t_stack *b);
+int						ft_strlen(char *str);
+void					setup_stacks(t_stack *a, t_stack *b,
+							char **strtab_numbers, int tablen);
+void					write_error_freestrtab_exit(char **tabstr, int ac);
 
 #endif

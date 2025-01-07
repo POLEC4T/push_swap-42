@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:07:50 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/01/07 14:50:27 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/01/07 16:15:20 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	get_nearest_higher_idx(t_stack *a, int val_to_push)
 	return (i_nearest_higher);
 }
 
-int	*init_stack(t_stack *s, int stack_size, enum e_stack_id stack_id)
+static int	*init_stack(t_stack *s, int stack_size, enum e_stack_id stack_id)
 {
 	s->top = -1;
 	s->direc = UP;
@@ -91,4 +91,26 @@ int	*init_stack(t_stack *s, int stack_size, enum e_stack_id stack_id)
 	s->list = malloc((stack_size) * sizeof(int));
 	s->idx_to_top = -1;
 	return (s->list);
+}
+
+/**
+ * initializes a and b stacks
+ * fill a with argv
+ */
+void	setup_stacks(t_stack *a, t_stack *b, char **strtab_numbers, int tablen)
+{
+	init_stack(a, tablen, STACK_A);
+	if (!a->list)
+		exit(1);
+	init_stack(b, tablen, STACK_B);
+	if (!b->list)
+	{
+		free(a->list);
+		exit(1);
+	}
+	while (((tablen) > 0))
+	{
+		tablen--;
+		push(a, ft_atoi(strtab_numbers[tablen], a, b));
+	}
 }

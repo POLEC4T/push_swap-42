@@ -7,7 +7,7 @@ CFLAGS = -Wall -Werror -Wextra -I $(INCDIR)
 
 SRCS = $(SRCDIR)push_swap.c \
 		$(SRCDIR)ft_atoi.c \
-		$(SRCDIR)input_check.c \
+		$(SRCDIR)ft_split.c \
 		$(SRCDIR)stack_utils.c \
 		$(SRCDIR)stack_utils2.c \
 		$(SRCDIR)stack_utils3.c \
@@ -15,9 +15,9 @@ SRCS = $(SRCDIR)push_swap.c \
 		$(SRCDIR)ops_rotate.c \
 		$(SRCDIR)ops_rev_rotate.c \
 		$(SRCDIR)ops_swap.c \
+		$(SRCDIR)input_check.c \
 		$(SRCDIR)sorter.c \
 		$(SRCDIR)calc_costs.c \
-		$(SRCDIR)ft_split.c \
 		$(SRCDIR)frees.c \
 		$(SRCDIR)utils.c
 

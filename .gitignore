@@ -3,5 +3,7 @@ push_swap
 *.out
 push_swap_visualizer
 push_swap_tester
+push_swap_leak_tester
 checker_linux*
 scros_tester
+checker
