@@ -6,14 +6,16 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:51:35 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/02/14 15:07:14 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/02/14 15:30:14 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
 /**
- * @returns 0 if argv + 1 contains anything else than numbers of dashes
+ * @returns 0 if input contains anything else than numbers
+ * @example ["123", "123", "abc"] => 0
+ * @example ["123", "123", "-123"] => 1
  */
 int	input_only_nb(char **input)
 {
