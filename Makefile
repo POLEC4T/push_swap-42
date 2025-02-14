@@ -6,7 +6,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -I $(INCDIR)
 
 SRCS = $(SRCDIR)push_swap.c \
-		$(SRCDIR)ft_atoi.c \
+		$(SRCDIR)ft_atoi_improved.c \
 		$(SRCDIR)ft_split.c \
 		$(SRCDIR)stack_utils.c \
 		$(SRCDIR)stack_utils2.c \
