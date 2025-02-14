@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atoi_improved.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:44:45 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/14 18:11:19 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/02/14 13:43:46 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	handle_overflows(int sign, unsigned long res, unsigned long limit,
 	return (1);
 }
 
-int	ft_atoi(const char *nptr, t_stack *a, t_stack *b)
+int	ft_atoi_improved(const char *nptr, int *error)
 {
 	int				i;
 	int				sign;
@@ -42,9 +42,8 @@ int	ft_atoi(const char *nptr, t_stack *a, t_stack *b)
 	{
 		if (!handle_overflows(sign, res, limit, nptr[i] - '0'))
 		{
-			free_stacks(a, b);
-			write(2, ERROR, 6);
-			exit(1);
+			*error = 1;
+			return (0);
 		}
 		res = res * 10 + nptr[i++] - '0';
 	}

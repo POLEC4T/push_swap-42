@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:51:10 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/01/07 18:24:15 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/02/14 13:55:55 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,11 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-void	write_error_exit(void)
-{
-	write(2, ERROR, 6);
-	exit(1);
-}
-
 void	write_error_freestacks_exit(t_stack *a, t_stack *b)
 {
 	free_stacks(a, b);
 	write(2, ERROR, 6);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
 
 void	write_error_freestrtab_exit(char **tabstr, int ac)
@@ -54,5 +48,5 @@ void	write_error_freestrtab_exit(char **tabstr, int ac)
 	if (ac == 2)
 		free_tab_str(tabstr);
 	write(2, ERROR, 6);
-	exit(1);
+	exit(EXIT_FAILURE);
 }

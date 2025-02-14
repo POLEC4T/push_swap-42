@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:51:35 by mniemaz           #+#    #+#             */
-/*   Updated: 2024/12/14 16:51:16 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/02/14 15:07:14 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,15 @@ int	input_only_nb(char **input)
 	i = -1;
 	while (input[++i])
 	{
-		j = -1;
-		while (input[i][++j])
-			if (!((input[i][j] >= '0' && input[i][j] <= '9')
-					|| input[i][j] == '-'))
+		j = 0;
+		if (input[i][j] == '-')
+			j++;
+		while (input[i][j])
+		{
+			if (!((input[i][j] >= '0' && input[i][j] <= '9')))
 				return (0);
+			j++;
+		}
 	}
 	return (1);
 }

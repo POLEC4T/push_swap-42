@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 15:40:03 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/01/07 16:34:20 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/02/14 13:55:57 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_stack
 	enum e_direction	direc;
 }						t_stack;
 
-int						ft_atoi(const char *nptr, t_stack *a, t_stack *b);
+int						ft_atoi_improved(const char *nptr, int *error);
 int						pop(t_stack *a);
 void					push(t_stack *a, int val);
 int						reverse_rotate(t_stack *s, enum e_print print_mode);
@@ -82,7 +82,6 @@ int						get_nearest_higher_idx(t_stack *a, int val_to_push);
 char					**ft_split(char const *s, char c);
 void					free_tab_str(char **tab);
 int						strtab_len(char **strtab);
-void					write_error_exit(void);
 void					write_error_freestacks_exit(t_stack *a, t_stack *b);
 int						ft_strlen(char *str);
 void					setup_stacks(t_stack *a, t_stack *b,

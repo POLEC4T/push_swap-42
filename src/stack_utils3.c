@@ -6,7 +6,7 @@
 /*   By: mniemaz <mniemaz@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:07:50 by mniemaz           #+#    #+#             */
-/*   Updated: 2025/01/07 18:36:06 by mniemaz          ###   ########.fr       */
+/*   Updated: 2025/02/14 14:05:28 by mniemaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,24 +93,43 @@ static int	*init_stack(t_stack *s, int stack_size, enum e_stack_id stack_id)
 	return (s->list);
 }
 
+static void	exit_error_atoi(int ac, char **strtab_numbers, t_stack *a,
+		t_stack *b)
+{
+	if (ac == 2)
+		free_tab_str(strtab_numbers);
+	free_stacks(a, b);
+	write(2, ERROR, 6);
+	exit(EXIT_FAILURE);
+}
+
 /**
  * initializes a and b stacks
  * fill a with argv
  */
-void	setup_stacks(t_stack *a, t_stack *b, char **strtab_numbers, int tablen)
+void	setup_stacks(t_stack *a, t_stack *b, char **strtab_numbers, int ac)
 {
+	int	tablen;
+	int	atoi_overflowed;
+	int	atoi_value;
+
+	atoi_overflowed = 0;
+	tablen = strtab_len(strtab_numbers);
 	init_stack(a, tablen, STACK_A);
 	if (!a->list)
-		exit(1);
+		write_error_freestrtab_exit(strtab_numbers, ac);
 	init_stack(b, tablen, STACK_B);
 	if (!b->list)
 	{
 		free(a->list);
-		exit(1);
+		write_error_freestrtab_exit(strtab_numbers, ac);
 	}
 	while (((tablen) > 0))
 	{
 		tablen--;
-		push(a, ft_atoi(strtab_numbers[tablen], a, b));
+		atoi_value = ft_atoi_improved(strtab_numbers[tablen], &atoi_overflowed);
+		if (atoi_overflowed)
+			exit_error_atoi(ac, strtab_numbers, a, b);
+		push(a, atoi_value);
 	}
 }
